@@ -1,13 +1,32 @@
-{% extends "layout.html" %}
-{% block title %}Flask MVC App{% endblock %}
-{% block page %}Flask MVC App{% endblock %}
+<!DOCTYPE html>
+<html lang = "en">
 
-{{ super() }}
+<head>
+  <link rel = "stylesheet" href="{{ url_for('static', filename='index.css') }}">
+  <!--Import Google Icon Font-->
+ <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+ <!-- Compiled and minified CSS -->
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+ <!--Let browser know website is optimized for mobile-->
+ <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Build-a-body</title>
+</head>
 
-{% block content %}
-    <h1>Flask MVC</h1>
-    {% if is_authenticated %}
-        <p> Welcome {{current_user.username}} </p>
-    {% endif %}
-    <p>This is a boileplate flask application which follows the MVC pattern for structuring the project.</p>
-{% endblock %}
+<body>
+<header class = "header">
+    <nav class = "navbar">
+      <ul class = "left">
+        <img src="https://cdn-sharing.adobecc.com/composite/component/id/urn:aaid:sc:US:2fbd1a5d-739c-4366-aab7-51d597107e18?component_id=7c1b8bee-964b-4e97-86b2-ae91029fc977&revision=eb9adeb3-2c5e-481e-a6d6-63214728f8bb&api_key=projectx_webapp&access_token=1713515524_urn%3Aaaid%3Asc%3AUS%3A2fbd1a5d-739c-4366-aab7-51d597107e18%3Bpublic_eddafc6d7e8526367148ed4efc883ef87db3cc57" alt ="logo">
+      </ul>
+      <ul class = "right">
+        <li><a href = "#" class = "active">Home</a></li>
+        <li><a href = "#" >My Routines</a></li>
+        <li><a href = "#" >Logout</a></li>
+      </ul>
+  </header>
+
+  <div class = "routine-maker">
+
+  </div>
+</body>
+</html>
