@@ -1,20 +1,20 @@
 from App.database import db
 
 class Routines(db.Model):
-	__tablename__ = "routine"
+	__tablename__ = "routines"
 	id = db.Column(db.Integer, primary_key=True)
 	name = db.Column(db.String(255), nullable = True)
-	ownerID = db.Column(db.Integer, db.ForeignKey('user.id'), nullable = False)
-	workouts = db.relationship('RoutineWorkouts', backref='routine')
+	user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable = False)
+	workouts = db.relationship('RoutineWorkouts', backref='routines')
 
 	def __init__(self, user, name):
 		self.name =  name
-		self.owner = user
+		self.user = user
 
 	def get_json(self):
 		return{
 			'id': self.id,
-			'owner': self.owner.firstName,
+			'user': self.user.firstName,
 			'Routine name': self.name
 		}
 
