@@ -1,34 +1,128 @@
 <!DOCTYPE html>
-<html lang = "en">
+<html lang="en">
 
 <head>
-  <link rel = "stylesheet" href="{{ url_for('static', filename='index.css') }}">
-  <!--Import Google Icon Font-->
- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
- <!-- Compiled and minified CSS -->
- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
- <!--Let browser know website is optimized for mobile-->
- <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Build-a-body</title>
-  <link rel="icon" href="https://cdn-sharing.adobecc.com/composite/component/id/urn:aaid:sc:US:2fbd1a5d-739c-4366-aab7-51d597107e18?component_id=7c1b8bee-964b-4e97-86b2-ae91029fc977&revision=eb9adeb3-2c5e-481e-a6d6-63214728f8bb&api_key=projectx_webapp&access_token=1713515524_urn%3Aaaid%3Asc%3AUS%3A2fbd1a5d-739c-4366-aab7-51d597107e18%3Bpublic_eddafc6d7e8526367148ed4efc883ef87db3cc57" type="image/x-icon">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/homestyles.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='homestyles.css') }}">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+    <title>FitLab Fitness</title>
 </head>
+<script>
+    function toggleclick(routineId) {
+        fetch('/routine/' + routineId + '/workouts')
+            .then(response => response.json())
+            .then(data => {
+                const workoutsContainer = document.querySelector('.bodypart');
+                workoutsContainer.innerHTML = '';
+                data.workouts.forEach(workout => {
+                    const workoutDiv = document.createElement('div');
+                    workoutDiv.innerHTML = `
+                    <h1>Workout Name: ${workout.workout.name}</h1>
+                    <p>Sets: ${workout.sets}</p>
+                    <p>Reps: ${workout.reps}</p>
+                    <p>Rest Time: ${workout.rest_time}</p>
+                `;
+                    workoutsContainer.appendChild(workoutDiv);
+                });
+                document.getElementById("popup-1").classList.add("active");
+            })
+            .catch(error => {
+                console.error('Error fetching workouts:', error);
+            });
+    }
+
+    function closePopup() {
+        document.getElementById("popup-1").classList.remove("active");
+    }
+
+    function toggleEdit() {
+        var button = document.getElementById("edit-button");
+
+        var routineId = document.getElementById("routine-id").value;
+
+        window.location.href = '/routine/' + routineId;
+
+    }
+
+    function redirectToCreateRoutine() {
+        window.location.href = "/create-routine/all";
+    }
+
+    function redirectToViewRoutines() {
+        window.location.href = '/myroutines';
+    }
+</script>
 
 <body>
-<header class = "header">
-    <nav class = "navbar">
-      <ul class = "left">
-        <img src="https://cdn-sharing.adobecc.com/composite/component/id/urn:aaid:sc:US:2fbd1a5d-739c-4366-aab7-51d597107e18?component_id=7c1b8bee-964b-4e97-86b2-ae91029fc977&revision=eb9adeb3-2c5e-481e-a6d6-63214728f8bb&api_key=projectx_webapp&access_token=1713515524_urn%3Aaaid%3Asc%3AUS%3A2fbd1a5d-739c-4366-aab7-51d597107e18%3Bpublic_eddafc6d7e8526367148ed4efc883ef87db3cc57" alt ="logo">
-        
-      </ul>
-      <ul class = "right">
-        <li><a href = "#" class = "active">Home</a></li>
-        <li><a href = "#" >My Routines</a></li>
-        <li><a href = "#" >Logout</a></li>
-      </ul>
-  </header>
+    <header class="header">
+        <nav class="navbar">
+            <ul class="right-side">
+                <img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.postermywall.com%2Findex.php%2Fart%2Ftemplate%2F386146ae4164059d8fb5bbf00a6c28bc%2Ffitness-logo%252C-gym-logo%252C-fitness-center-logo-%2528-design-template&psig=AOvVaw1gk8HZnsSwFvrjKJNbm0vF&ust=1713631815105000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCNC_3pLezoUDFQAAAAAdAAAAABAe"
+                    alt="">
+            </ul>
+            <ul class="left-side">
+                <li><a href="{{ url_for('index_views.home') }}" class="active">Home</a></li>
+                <li><a href="{{ url_for('routines_views.view_my_routines') }}">Routines</a></li>
+                <li><a href="{{ url_for('auth_views.logout_action') }}">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="image_container">
+    </div>
+    <div>
+        <div class="popup" id="popup-1">
+            <div class="overlay">
+                <div class="content">
+                    <div class="close-btn" onclick="closePopup()"><i class='bx bx-x'></i></div>
+                    <div class="content-split">
+                        <div class="routine-info">
+                            <div class="bodypart">
 
-  <div class = "routine-maker">
+                            </div>
+                        </div>
+                        <div class="routine-info">
+                            <div class="bodypart">
 
-  </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="text-container">
+            <h1>Recent Routines</h1>
+            <button onclick="redirectToViewRoutines()" class="button-s">View All</button>
+        </div>
+        <div class="padding-card">
+            {% if user.routines %}
+                {% for r in latest %}
+                <a onclick="toggleclick('{{r.id}}')">
+                    <div class="card-container">
+                            <div class=" card">
+                            <div class="card-text">
+                                <h3> {{r.name}}</h3>
+                                <!-- <p>3 Workouts day</p> -->
+                            </div>
+                        </div>
+                        </a>
+                {% endfor %}
+            {% else %}
+                <h1>No Recent Routines</h1>
+            {% endif %}
+        </div>
+        <div class="button-container">
+            <button onclick="redirectToCreateRoutine()" class="button-r">
+                Create Routine
+            </button>
+            <!-- <button onclick="redirectToBrowseWorkouts()" class="button-w">
+                Browse Workouts
+            </button> -->
+        </div>
+    </div>
+    
 </body>
+
 </html>
