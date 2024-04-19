@@ -16,7 +16,7 @@ def get_workout(id):
 def get_all_workouts():
   return Workouts.query.all()
 
-def get_workouts_by_bodyPart(category):
+def get_workout_by_bodyPart(category):
   if category == "all":
     return Workouts.query.all()
   elif category == "legs":
