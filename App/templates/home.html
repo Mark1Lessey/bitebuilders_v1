@@ -9,6 +9,16 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
     <title>FitLab Fitness</title>
+
+    <script>
+        function toggleclick() {
+            document.getElementById("popup-1").classList.toggle("active");
+            var routineId = document.getElementById("routine-id").value;
+            window.location.href = '/routine/' + routineId + '/view-workouts/all';
+        }
+
+    </script>
+    
 </head>
 
 <body>
