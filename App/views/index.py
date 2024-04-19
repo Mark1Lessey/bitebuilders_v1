@@ -1,10 +1,18 @@
 from flask import Blueprint, redirect, render_template, request, send_from_directory, jsonify
 from flask_jwt_extended import JWTManager as jwt_current_user
 from App.models import db
-from App.controllers import create_user, createWorkout
+from App.controllers import (
+    create_user, 
+    create_workout,
+    create_routine,
+    get_user_by_username,
+    get_workout,
+    add_workout,
+    )
 
 from App.models import User
 import csv
+
 from flask_jwt_extended import(
     JWTManager,
     create_access_token,
@@ -13,7 +21,6 @@ from flask_jwt_extended import(
     current_user,
     set_access_cookies,
     unset_jwt_cookies,
-    current_user,
     )
 
 index_views = Blueprint('index_views', __name__, template_folder='../templates')
@@ -21,9 +28,9 @@ index_views = Blueprint('index_views', __name__, template_folder='../templates')
 def initialize_db():
     db.drop_all()
     db.create_all()
-    user = create_user('')
+    user = create_user('bob', 'bobpass')
 
-    with open('exercises.csv') as csvfile:
+    with open('exercise.csv') as csvfile:
         reader = csv.DictReader(csvfile)
         for row in reader:
             if row['bodyPart'] == '':
@@ -38,27 +45,16 @@ def initialize_db():
                 row['instructions/1'] = None
 
         instructions = row['instructions/0'] + row['instructions/1']
-        createWorkout(row['name'], row['bodyPart'], row['equipment'], instructions)
-
+        create_workout(row['name'], row['bodyPart'], row['equipment'], instructions)
 
     print('database intialized')
 
 @index_views.route('/', methods=['GET'])
 def index_page():
-    return render_template('index.html')
-'''
+    initialize_db()
+    return render_template('login.html')
+
 @index_views.route('/index', methods=['GET'])
 @jwt_required()
 def home_page():
-    return 
-'''
-@index_views.route('/init', methods=['GET'])
-def init():
-    db.drop_all()
-    db.create_all()
-    create_user('bob', 'bobpass')
-    return jsonify(message='db initialized!')
-
-@index_views.route('/health', methods=['GET'])
-def health_check():
-    return jsonify({'status':'healthy'})
+    return render_template('index.html', user=jwt_current_user)

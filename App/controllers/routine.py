@@ -1,70 +1,68 @@
-from App.models import Routines, Workouts, RoutineWorkouts
+from App.models import routines, routine_workouts
 from App.database import db
 
-def createRoutine(user, name):
-    customRoutine = Routines(user, name)
-    db.session.add(customRoutine)
+def create_routine(user, name):
+    custom_routine = routines(user, name)
+    db.session.add(custom_routine)
     db.session.commit()
-    return customRoutine
+    return custom_routine
 
-def rename(self, name):
-    routine = Routines.query.filter_by(id=self.id).first()
-    if routine:
-        routine.name= name
-        db.session.add(routine)
+def rename_workout(self, name):
+    cur_routine = routines.query.filter_by(id=self.id).first()
+    if cur_routine:
+        cur_routine.name = name
+        db.session.add(cur_routine)
         db.session.commit()
         return True
     return None
 
-def addWorkout(routine_id, workout_id):
-    currentWorkout=RoutineWorkouts.query.filter_by(routine_id=routine_id, workout_id=workout_id).first()
-    if currentWorkout:
+def add_workout(routine_id, workout_id):
+    current_workout = routine_workouts.query.filter_by(routine_id=routine_id, workout_id=workout_id).first()
+    if current_workout:
         return None
-    
-    newRoutineWorkout = RoutineWorkouts(routine_id, workout_id, 3, 8, 45)
-    db.session.add(newRoutineWorkout)
+    cur_routine_workout = routine_workouts(routine_id, workout_id, 3, 8, 45)
+    db.session.add(cur_routine_workout)
     db.session.commit()
-    return newRoutineWorkout
+    return cur_routine_workout
     
 
-def removeWorkout(id):
-    workout = RoutineWorkouts.query.filter_by(id=id).first()
-    if workout:
-        db.session.delete(workout)
+def remove_workout(id):
+    cur_workout = routine_workouts.query.filter_by(id=id).first()
+    if cur_workout:
+        db.session.delete(cur_workout)
         db.session.commit()
         return True
     return None
 
 def get_routine(id):
-    routine = Routines.query.get(id)
-    return routine if routine else None
+    cur_routine = routines.query.get(id)
+    return cur_routine if cur_routine else None
 
-def update_routine_workout(id, sets, reps, rest_time):
-    workout = RoutineWorkouts.query.get(id)
-    workout.sets = sets
-    workout.reps = reps
-    workout.rest_time = rest_time
-    db.session.add(workout)
+def update_routine(id, sets, reps, rest_time):
+    cur_workout = routine_workouts.query.get(id)
+    cur_workout.sets = sets
+    cur_workout.reps = reps
+    cur_workout.rest_time = rest_time
+    db.session.add(cur_workout)
     db.session.commit()
-    return workout
+    return cur_workout
 
 def get_routine_workout(id):
-    workout = RoutineWorkouts.query.get(id)
-    if workout:
-        return workout
-    
+    cur_workout = routine_workouts.query.get(id)
+    if cur_workout:
+        return cur_workout  
     return None
 
 
 def delete_routine(id):
-    routine = Routines.query.filter_by(id=id).first()
+    cur_routine = routines.query.filter_by(id=id).first()
 
-    if routine.workouts:
-        for r in routine.workouts:
-            removeWorkout(r.id)
+    if cur_routine.workouts:
+        for r in cur_routine.workouts:
+            remove_workout(r.id)
     
-    if routine:
-        db.session.delete(routine)
+    if cur_routine:
+        db.session.delete(cur_routine)
         db.session.commit()
         return True
     return None

@@ -7,13 +7,13 @@ def create_workout(name, bodyPart, equipment, instructions):
     db.session.commit()
     return createWorkout
 
-def getWorkout(id):
+def get_workout(id):
   workout = Workouts.query.get(id)
   if workout:
     return workout
   return None
 
-def allWorkouts():
+def get_all_workouts():
   return Workouts.query.all()
 
 def get_workouts_by_bodyPart(category):
