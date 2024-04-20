@@ -3,7 +3,7 @@ from App.database import db
 class RoutineWorkouts(db.Model):
 	__tablename__ = "routine_workouts"
 	id = db.Column(db.Integer, primary_key=True)
-	routine_id = db.Column(db.Integer, db.ForeignKey('routine.id'), nullable =False)
+	routine_id = db.Column(db.Integer, db.ForeignKey('routines.id'), nullable =False)
 	workout_id = db.Column(db.Integer, db.ForeignKey('workouts.id'), nullable = False)
 	workout = db.relationship('Workouts')
 	sets = db.Column(db.Integer, nullable = False )

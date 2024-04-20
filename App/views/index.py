@@ -7,7 +7,7 @@ from App.controllers import (
     create_routine,
     get_user_by_username,
     get_workout,
-    add_workout,
+    add_routine_workout,
     )
 
 from App.models import User
