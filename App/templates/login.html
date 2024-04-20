@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang = "en">
+
+<head>
+  <link rel = "stylesheet" href="{{ url_for('static', filename='login_style.css') }}">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Build-a-body</title>
+  <link rel="icon" href="https://cdn-sharing.adobecc.com/composite/component/id/urn:aaid:sc:US:2fbd1a5d-739c-4366-aab7-51d597107e18?component_id=7c1b8bee-964b-4e97-86b2-ae91029fc977&revision=eb9adeb3-2c5e-481e-a6d6-63214728f8bb&api_key=projectx_webapp&access_token=1713515524_urn%3Aaaid%3Asc%3AUS%3A2fbd1a5d-739c-4366-aab7-51d597107e18%3Bpublic_eddafc6d7e8526367148ed4efc883ef87db3cc57" type="image/x-icon">
+</head>
+
+<body>
+    <div class="container">
+        <div class="content">
+            <div class="login-box">
+                <form action = '/login' method = "POST">
+                    <h2 style="text-align: center;">Login</h2>
+                    <div class="login-input">
+                        <div class="input-box">
+                            <input type="text" name = "username" placeholder="Enter Username" required >
+                            <label for="username">Username</label>
+                        </div>
+                        <div class="input-box">
+                            <input type = "password" name = "password" id ="password" placeholder="Enter Password" required >
+                            <img src = "https://cdn-icons-png.flaticon.com/256/159/159604.png" id = "password-toggle">
+                            <label for = "password">Password</label>
+                            
+                        </div>
+                    </div>
+                    <div class="submit">
+                        <button class="btn">Submit</button>
+                    </div>
+                </form>
+                <script>
+                    const password_input = document.getElementById('password');
+                    const password_toggle = document.getElementById('password-toggle');
+                
+                    password_toggle.addEventListener('click', function() {
+                        const type = password.getAttribute(
+                            'type') === 'password' ? 'text' : 'password';
+                         password.setAttribute('type', type);
+
+                        if (password_toggle.src.match("https://cdn-icons-png.flaticon.com/256/10812/10812267.png")) {
+                            password_toggle.src = "https://cdn-icons-png.flaticon.com/256/159/159604.png";
+                        } else {
+                            password_toggle.src = "https://cdn-icons-png.flaticon.com/256/10812/10812267.png"
+                        }
+                            
+                        
+                    });
+                </script>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

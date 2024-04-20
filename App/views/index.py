@@ -25,10 +25,18 @@ from flask_jwt_extended import(
 
 index_views = Blueprint('index_views', __name__, template_folder='../templates')
 
+
+
+@index_views.route('/', methods=['GET'])
+def index_page():
+    initialize_db()
+    return render_template('login.html')
+
+@index_views.route('/init', methods=['GET'])
 def initialize_db():
     db.drop_all()
     db.create_all()
-    user = create_user('bob', 'bobpass')
+    create_user('bob', 'bobpass')
 
     with open('exercise.csv') as csvfile:
         reader = csv.DictReader(csvfile)
@@ -48,11 +56,7 @@ def initialize_db():
         create_workout(row['name'], row['bodyPart'], row['equipment'], instructions)
 
     print('database intialized')
-
-@index_views.route('/', methods=['GET'])
-def index_page():
-    initialize_db()
-    return render_template('login.html')
+    return jsonify(message = "Database initialized")
 
 @index_views.route('/index', methods=['GET'])
 @jwt_required()

@@ -115,5 +115,5 @@ def create_routine_action(category = 'all'):
             add_routine_workout(routine_id = routine.id, workout_id = id)
 
         return redirect(url_for('routine_views.view_routine_action'))
-    return render_template('create.html', workouts=workouts)
+    return render_template('createroutine.html', workouts=workouts)
 '''

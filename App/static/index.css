@@ -5,7 +5,15 @@
 }
 
 body {
-    background-color: whtie;
+    background-color: white;
+    justify-content: center;
+    align-items: center; 
+    height: 100vh; 
+    margin: 0; 
+}
+
+.web-body {
+    text-align: center;
 }
 
 .header {
@@ -40,6 +48,14 @@ body {
     border-radius: 10px;
     background-color: #83C9BC;
 }
+
+
+.center {
+    position: relative;
+    left: 38%;
+    right: inherit;
+}
+
 
 .left {
     display: flex;
