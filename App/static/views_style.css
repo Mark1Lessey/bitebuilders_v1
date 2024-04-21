@@ -49,19 +49,14 @@ body {
     background-color: #83C9BC;
 }
 
+
 .card-container {
-    position: relative;
-    left: 25%;
-    right: inherit;
-    justify-content: center;
-    text-align: center;
-}
+    display: flex;
+    justify-content: left;
+    
+  }
 
-.card-container span{
-    text-align: center;
-}
-
-.center {
+  .center {
     position: relative;
     left: 38%;
     right: inherit;
@@ -92,37 +87,3 @@ body {
 .right li{
    margin-top: auto;
 }
-
-.circle-holder {
-    margin-top: 80px;
-    margin-bottom: 100px;
-    margin-right: 120px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.circular_image {  
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    overflow: hidden;
-    background-color: #83C9BC;
-    margin-left: 125px;
-    margin-top: 20px;
-    display:inline-block;
-    vertical-align:middle;
-  }
-
-  .circular_image img{
-    width:100%;
-  }
-
-  .circular_image a{
-    color: black;
-  }
-
- 

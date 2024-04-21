@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang = "en">
+
+<head>
+    <link rel = "stylesheet" href="{{ url_for('static', filename='index.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Build-a-body</title>
+    <link rel="icon" href="https://cdn-sharing.adobecc.com/composite/component/id/urn:aaid:sc:US:2fbd1a5d-739c-4366-aab7-51d597107e18?component_id=7c1b8bee-964b-4e97-86b2-ae91029fc977&revision=eb9adeb3-2c5e-481e-a6d6-63214728f8bb&api_key=projectx_webapp&access_token=1713515524_urn%3Aaaid%3Asc%3AUS%3A2fbd1a5d-739c-4366-aab7-51d597107e18%3Bpublic_eddafc6d7e8526367148ed4efc883ef87db3cc57" type="image/x-icon">
+</head>
+
+<body>
+<header class = "header">
+    <nav class = "navbar">
+        <ul class = "left">
+            <img src="https://cdn-sharing.adobecc.com/composite/component/id/urn:aaid:sc:US:2fbd1a5d-739c-4366-aab7-51d597107e18?component_id=7c1b8bee-964b-4e97-86b2-ae91029fc977&revision=eb9adeb3-2c5e-481e-a6d6-63214728f8bb&api_key=projectx_webapp&access_token=1713515524_urn%3Aaaid%3Asc%3AUS%3A2fbd1a5d-739c-4366-aab7-51d597107e18%3Bpublic_eddafc6d7e8526367148ed4efc883ef87db3cc57" alt ="logo">
+        </ul>
+        <ul class = "center">
+            <li><a href = "{{ url_for('index_views.home_page')}}" >Home</a></li>
+            <li><a href = "{{ url_for('workout_views.views_workouts') }}" >Workouts</a></li>
+            <li><a href = "{{ url_for('routine_views.view_my_routines') }}" >Routine Maker</a></li>
+        </ul>
+        <ul class = "right">
+            <li><a href = "{{ url_for('auth_views.logout_action') }}">Logout</a></li>
+        </ul>
+        </ul>
+    </nav>
+</header>
+
+    <div class="circle-holder">
+        <div class="circular_image">
+            <a href = "/get_byPart/all">
+            <p style = "text-align: center;"><b>ALL</b></p>
+            <img src="https://as1.ftcdn.net/v2/jpg/00/84/49/98/1000_F_84499894_4OvtcUJYjXgZtjeKKLYCRvLnO1CKsMen.jpg"/>
+            </a>
+        </div>
+    </div>
+
+    <div class="circle-holder">
+        <div class="circular_image">
+            <a href = "/get_byPart/arms">
+            <p style = "text-align: center;"><b>ARMS</b></p>
+            <img src="https://as1.ftcdn.net/v2/jpg/05/26/72/04/1000_F_526720428_Irh2FU8K48V6wuqqhySlb4G90Ie6Vk0Y.jpg"/>
+            </a>
+        </div>
+        <div class="circular_image">
+            <a href = "/get_byPart/legs">
+            <p style = "text-align: center;"><b>LEGS</b></p>
+            <img src="https://as2.ftcdn.net/v2/jpg/05/26/72/03/1000_F_526720384_L1nLTxsC30Rl7whw3oLjkB1cwZZkuvVN.jpg"/>
+            </a>
+        </div>
+       
+    </div>
+
+    <div class="circle-holder">
+        <div class="circular_image">
+            <a href = "/get_byPart/chest">
+            <p style = "text-align: center;"><b>CHEST</b></p>
+            <img src="https://as1.ftcdn.net/v2/jpg/05/29/47/00/1000_F_529470086_t5Fn1iHjPIU2Z4Ier3vf3PcWboONIAAR.jpg"/>
+            </a>
+        </div>
+        <div class="circular_image">
+            <a href = "/get_byPart/cardio">
+            <p style = "text-align: center;"><b>CARDIO</b></p>
+            <img src="https://as1.ftcdn.net/v2/jpg/04/56/40/06/1000_F_456400675_1psdfbKpKuUF9xl8ej9VZEmyaNZRFf2H.jpg"/>
+            </a>
+        </div>
+        <div class="circular_image">
+            <a href = "/get_byPart/back">
+            <p style = "text-align: center;"><b>BACK</b></p>
+            <img src="https://as1.ftcdn.net/v2/jpg/05/29/47/00/1000_F_529470067_B9TrB925O1lPvmp6ufMFZTliI8RQRAgs.jpg"/>
+            </a>
+        </div>
+    </div>  
+
+    <div><br></br></div>
+</body>
+</html>

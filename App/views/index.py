@@ -52,9 +52,9 @@ def initialize_db():
             if row['instructions/1'] == '':
                 row['instructions/1'] = None
 
-        instructions = row['instructions/0'] + row['instructions/1']
-        create_workout(row['name'], row['bodyPart'], row['equipment'], instructions)
-
+            instructions = row['instructions/0'] + row['instructions/1']
+            curr_workout = create_workout(row['name'], row['bodyPart'], row['equipment'], instructions)
+    print (curr_workout.name)
     print('database intialized')
     return jsonify(message = "Database initialized")
 
