@@ -56,9 +56,8 @@ def  get_workouts_for_routine(routine_id):
 
 @routine_views.route('/add_workout_to_routine/<int:routine_id>', methods = ['POST'])
 @jwt_required()
-def add_routine_workout(routine_id, category='all'):
+def add_routine_workout(routine_id):
     data = None
-    exercises = get_workout_by_bodyPart(category)
     selected_routine = get_routine(routine_id)
     workouts = selected_routine.workouts
 

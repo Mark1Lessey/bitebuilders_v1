@@ -8,7 +8,7 @@ class Workouts(db.Model):
     equipment = db.Column(db.String(100), nullable=False)
     instructions = db.Column(db.String(500), nullable=False)
 
-    def __init__(self, name, bodyPart, equipment, instructions):
+    def __init__(self, id, name, bodyPart, equipment, instructions):
         self.name = name
         self.bodyPart = bodyPart
         self.equipment = equipment

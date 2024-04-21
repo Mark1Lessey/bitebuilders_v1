@@ -2,7 +2,7 @@
 <html lang = "en">
 
 <head>
-    <link rel = "stylesheet" href="{{ url_for('static', filename='index.css') }}">
+    <link rel = "stylesheet" href="{{ url_for('static', filename='views_style.css') }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
@@ -29,18 +29,19 @@
         </nav>
     </header>
 
-    <section class = "col s12 m9" style = "margin-top: 5px; height: 86vh">
+    <div class = 'row'>
+    <section class = "col s12 m9" style = "margin-top: 5px; overflow-y: scroll; height: 86vh">
         <div class = "card-container">
                 <div class="row">
                     
                     <div class="col s12 m5">
-                        {%for wor in category_get%}
+                        {%for work in category_get%}
                         <div class="card">
                             <div class = "card-content">
-                                <p>Workout Name: {{wor.name}}
-                                <p>Workout Equipment: {{wor.equipment}}</p>
-                                <p>Body Part Used : {{wor.bodyPart}}</p>
-                                <p>Instructions: {{wor.instructions}}</p>
+                                <p>Workout Name: {{work.name}}
+                                <p>Workout Equipment: {{work.equipment}}</p>
+                                <p>Body Part Used: {{work.bodyPart}}</p>
+                                <p>Instructions: {{work.instructions}}</p>
                             </div>
                             <div class = "card-action">
                                 <a href = "#">Add Workout</a>
@@ -52,6 +53,7 @@
                 </div>
         </div>
     </section>
+    </div>
     
 </body>
 </html>

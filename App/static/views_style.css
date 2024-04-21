@@ -12,10 +12,6 @@ body {
     margin: 0; 
 }
 
-.web-body {
-    text-align: center;
-}
-
 .header {
     position: relative;
     height: 70px;
@@ -51,12 +47,18 @@ body {
 
 
 .card-container {
-    display: flex;
-    justify-content: left;
-    
-  }
+    position: relative;
+    left: 10%;
+    right: inherit;
+    justify-content: center;
+    text-align: center;
+    font-size: medium;
+    text-decoration:solid;
+}
 
-  .center {
+
+
+.center {
     position: relative;
     left: 38%;
     right: inherit;
