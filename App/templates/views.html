@@ -29,7 +29,7 @@
         </nav>
     </header>
 
-    <div class = 'row'>
+ <div class = 'row'>
     <section class = "col s12 m9" style = "margin-top: 5px; overflow-y: scroll; height: 86vh">
         <div class = "card-container">
                 <div class="row">
@@ -44,7 +44,7 @@
                                 <p>Instructions: {{work.instructions}}</p>
                             </div>
                             <div class = "card-action">
-                                <a href = "#">Add Workout</a>
+                                <a href = "/get_workout_in_routine">Add Workout</a>
                             </div>
                         </div>
                          {%endfor%}
@@ -53,7 +53,45 @@
                 </div>
         </div>
     </section>
-    </div>
+
+    <section class = "col s12 m3">
+        {%if category_get%}
+        <h3 style = "text-align: center;">Workouts for Routine</h3>
+
+        <form class = "card col s12" method = "POST" action = "/add_workout_to_routine">
+            <div class = "row">
+                <input type="hidden" value = "{{ category_get.id }}" name = "workout_id">
+                <div class = "input-field col s12">
+                    <textarea name = "text" class = "materialize-textarea"></textarea>
+                        <placeholder for = "text">Name Routine</placeholder>
+                </div>
+            </div>
+            <button class = "btn waves-effect waves-light red" type = "submit">
+                Add Workout
+            </button>
+
+
+        </form>
+
+        {%else%}
+        <h4>Select a workout to add to routine</h4>
+        {%endif%}
+
+        <div class="row" style="height: 44vh; overflow-y: scroll">
+            {%for work in get_routine.workout%}
+            <div class="card">
+                <div class="card-content">
+                  <p>Text: {{ work.workout.name }}</p>
+                  <p>Review Rating: {{ work.workout.bodyPart }}</p>
+                </div>
+                <div class="card-action">
+                  <a href="#">Remove from Routine</a>
+                </div>
+            </div>
+            {%endfor%}
+          </div>
+    </section>
+ </div>
     
 </body>
 </html>

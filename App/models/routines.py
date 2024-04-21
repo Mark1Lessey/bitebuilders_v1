@@ -7,9 +7,10 @@ class Routines(db.Model):
 	user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable = False)
 	workouts = db.relationship('RoutineWorkouts', backref='routines')
 
-	def __init__(self, user, name):
-		self.name =  name
-		self.user = user
+	def __init__(self, id, user_id, name):
+		self.id=id
+		self.name = name
+		self.user_id = user_id
 
 	def get_json(self):
 		return{

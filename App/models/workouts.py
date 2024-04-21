@@ -9,6 +9,7 @@ class Workouts(db.Model):
     instructions = db.Column(db.String(500), nullable=False)
 
     def __init__(self, id, name, bodyPart, equipment, instructions):
+        self.id = id
         self.name = name
         self.bodyPart = bodyPart
         self.equipment = equipment

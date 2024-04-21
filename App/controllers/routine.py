@@ -1,8 +1,8 @@
-from App.models import routines, routine_workouts
+from App.models import routines, RoutineWorkouts
 from App.database import db
 
-def create_routine(user, name):
-    create_routine = routines(user, name)
+def create_routine(user_id, name, id):
+    create_routine = routines(id, name, user_id)
     db.session.add(create_routine)
     db.session.commit()
     return create_routine
@@ -17,22 +17,22 @@ def rename_routine(routine_id, routine_name):
     return None
 
 def add_routine_workout(routine_id, workout_id):
-    cur_workout = routine_workouts.query.filter_by(routine_id=routine_id, workout_id=workout_id).first()
+    cur_workout = RoutineWorkouts.query.filter_by(routine_id=routine_id, workout_id=workout_id).first()
     if cur_workout:
         return None
-    cur_routine_workout = routine_workouts(routine_id, workout_id, 3, 8, 45)
+    cur_routine_workout = RoutineWorkouts(routine_id, workout_id, 3, 8, 45)
     db.session.add(cur_routine_workout)
     db.session.commit()
     return cur_routine_workout
     
 def get_routine_workout(routine_id):
-    cur_workout = routine_workouts.query.get(routine_id)
+    cur_workout = RoutineWorkouts.query.get(routine_id)
     if cur_workout:
         return cur_workout  
     return None
 
 def remove_routine_workout(routine_id):
-    cur_routine_workout = routine_workouts.query.filter_by(id=routine_id).first()
+    cur_routine_workout = RoutineWorkouts.query.filter_by(id=routine_id).first()
     if cur_routine_workout:
         db.session.delete(cur_routine_workout)
         db.session.commit()
@@ -40,7 +40,7 @@ def remove_routine_workout(routine_id):
     return None
 
 def update_routine_workout(routine_id, sets, reps, rest_time):
-    cur_workout = routine_workouts.query.get(routine_id)
+    cur_workout = RoutineWorkouts.query.get(routine_id)
     cur_workout.sets = sets
     cur_workout.reps = reps
     cur_workout.rest_time = rest_time

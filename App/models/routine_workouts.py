@@ -6,15 +6,10 @@ class RoutineWorkouts(db.Model):
 	routine_id = db.Column(db.Integer, db.ForeignKey('routines.id'), nullable =False)
 	workout_id = db.Column(db.Integer, db.ForeignKey('workouts.id'), nullable = False)
 	workout = db.relationship('Workouts')
-	sets = db.Column(db.Integer, nullable = False )
-	reps = db.Column(db.Integer, nullable = False)
-	restTime = db.Column(db.Integer, nullable = False)
 	
 
-	def __init__(self, routine_id, workout_id, sets, reps, restTime):
-		self.sets = sets
-		self.reps = reps
-		self.restTime = restTime
+	def __init__(self, id, routine_id, workout_id):
+		self.id = id
 		self.routine_id = routine_id
 		self.workout_id = workout_id
 

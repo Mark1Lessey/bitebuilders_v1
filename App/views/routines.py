@@ -3,7 +3,8 @@ from flask_jwt_extended import current_user as jwt_current_user
 
 from .index import index_views
 
-from App.models import User
+from App.models import User, Routines, RoutineWorkouts
+from App.database import db
 
 from App.controllers import(
     jwt_required,
@@ -45,30 +46,43 @@ def view_my_routines(routine_id=None):
 
     return render_template('views.html', user=jwt_current_user)
 
-@routine_views.route('/get_workout_in_routine/<int:routine_id>')
-def  get_workouts_for_routine(routine_id):
-    routine = get_routine(routine_id)
-    workouts = routine.workouts
-
-    workout_data = [{'workout': {'name': workout.workout.name}, 'sets': workout.sets, 'reps': workout.reps, 'rest_time': workout.rest_time} for workout in workouts]
-
-    return jsonify({'workouts': workout_data})
-
-@routine_views.route('/add_workout_to_routine/<int:routine_id>', methods = ['POST'])
+@routine_views.route('/get_byPart/<category>')
+@routine_views.route('/get_workout_in_routine')
 @jwt_required()
-def add_routine_workout(routine_id):
-    data = None
-    selected_routine = get_routine(routine_id)
-    workouts = selected_routine.workouts
+def  get_workouts_for_routine(routine_id=None, category=""):
 
-    if request.method == 'POST':
-        data = request.form
-        exercise_id = data.getlist('exercise-id')
-        for id in exercise_id:
-            add_routine_workout(routine_id=routine_id, workout_id=id)
+    data=request.form
+    if category == "chest":
+        category_get = get_workout_by_bodyPart(category="chest")
+    elif category == "back":
+        category_get = get_workout_by_bodyPart(category="back")
+    elif category == "cardio":
+        category_get = get_workout_by_bodyPart(category="cardio")
+    elif category == "arms":
+        category_get = get_workout_by_bodyPart(category="arms")
+    elif category == "legs":
+        category_get = get_workout_by_bodyPart(category="legs")
+    else: 
+        category_get = get_workout_by_bodyPart(category="all")
+    routine = get_routine_workout(routine_id)
 
-        return redirect(url_for('routines_views.routine_workouts', id = routine_id, routine_workout_id = None))
-    return render_template('routine_adder.html', routine = selected_routine, workouts = workouts, exercises = exercises)
+    return render_template('views.html', get_routine=routine, category_get=category_get)
+
+
+@routine_views.route('/add_workout_to_routine', methods = ['POST'])
+@jwt_required()
+def add_routine_workout():
+    data = request.form
+    selected_routine = RoutineWorkouts.query.filter_by(id=data['routine_id']).first()
+
+    if selected_routine:
+        add_routine_workout(routine_id=selected_routine.id, workout_id=workouts.id)
+
+    else:
+        workouts = RoutineWorkouts(id=data['routine_id'], workout_id=data['workout_id'], routine_id=data['routine_id'])
+    db.session.add(workouts)
+    db.session.commit()
+    return redirect(request.referrer)
 
 @routine_views.route('/rename_routine/<int:routine_id>', methods=['POST'])
 @jwt_required()
