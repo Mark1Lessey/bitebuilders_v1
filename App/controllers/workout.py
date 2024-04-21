@@ -26,10 +26,3 @@ def get_workout_by_bodyPart(category):
   else:
     return Workouts.query.filter_by(bodyPart=category).all()
 
-# def remove_workout(workout_id):
-#     cur_workout = Workouts.query.filter_by(workout_id).first()
-#     if cur_routine_workout:
-#         db.session.delete(cur_workout)
-#         db.session.commit()
-#         return True
-#     return None
