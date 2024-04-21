@@ -82,7 +82,7 @@ def add_routine_workout():
         workouts = RoutineWorkouts(id=data['routine_id'], workout_id=data['workout_id'], routine_id=data['routine_id'])
     db.session.add(workouts)
     db.session.commit()
-    return redirect(request.referrer)
+    return redirect ('routine.html')
 
 @routine_views.route('/rename_routine/<int:routine_id>', methods=['POST'])
 @jwt_required()
@@ -98,18 +98,3 @@ def delete_routine_action(routine_id):
         flash('Routine Removed')
         return redirect(request.referrer)
 
-@routine_views.route('/ceate_routine/<category>', methods=['GET'])
-@routine_views.route('/create_routine', methods = ['POST'])
-@jwt_required()
-def create_routine_action(category = 'all'):
-    workouts = get_workout_by_bodyPart(category)
-
-    if request.method == 'POST':
-        data = request.form
-        routine = create_routine(jwt_current_user, data['routine_name'])
-        exercise_id = data.getlist('excercise_id')
-        for id in exercise_id:
-            add_routine_workout(routine_id = routine.id, workout_id = id)
-
-        return redirect(url_for('routine_views.view_routine_action'))
-    return render_template('createroutine.html', workouts=workouts)
