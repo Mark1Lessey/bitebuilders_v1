@@ -21,36 +21,20 @@ from App.controllers import(
 
 routine_views = Blueprint('routine_views', __name__, template_folder='../templates')
 
-'''
 @routine_views.route('/routine/<int:routine_id>', methods=['GET'])
-@routine_views.route('/routine/<int:routine_id>/edit_workout/<int:workout_id>', methods=['GET', 'POST'])
+@routine_views.route('/edit_workout/<int:workout_id>', methods=['POST'])
 @jwt_required()
 def routine_workouts(routine_id, workout_id = None):
     selected_routine = get_routine(routine_id)
     selected_workouts = selected_routine.workouts
 
-    data = None
-    workout = None
-    
+    data = request.form
 
-    if selected_workouts:
-        workout = selected_workouts[0]
-    if 'workout_id' in request.view_args:
-        workout = get_routine_workout(workout_id)
+    workout = update_routine_workout(sets = int(data['sets']), reps = int(data['reps']), rest_time = int(data['rest-time']), id = workout.id)
 
-    if request.method == 'POST':
-        data = request.form
-        workout = update_routine_workout(sets = int(data['sets']), reps = int(data['reps']), rest_time = int(data['rest-time']), id = workout.id)
+    return render_template('routine.html', routine=selected_routine, workouts=selected_workouts, workout=workout)
 
-    return render_template('routine.html', routine=selected_routine, workouts = selected_workouts, workout=workout)
-
-@routine_views.route('/routine/<int:routine_id>/delete/<int:workout_id', methods=['GET'])
-@jwt_required()
-def delete_routine_workout_action(workout_id, routine_id):
-    remove_routine_workout(workout_id)
-    return redirect(url_for('routine_views.routine_workouts', id = routine_id))
-
-@routine_views.route('/myroutines', methods = ['GET'])
+@routine_views.route('/myroutines', methods=['GET'])
 @routine_views.route('/myroutines/<id>', methods=['GET'])
 @jwt_required()
 def view_my_routines(routine_id=None):
@@ -59,9 +43,9 @@ def view_my_routines(routine_id=None):
         routine = get_routine(routine_id)
 
 
-    return render_template('views.html', user = jwt_current_user)
+    return render_template('views.html', user=jwt_current_user)
 
-@routine_views.route('/routine/<int:routine_id>/workouts')
+@routine_views.route('/get_workout_in_routine/<int:routine_id>')
 def  get_workouts_for_routine(routine_id):
     routine = get_routine(routine_id)
     workouts = routine.workouts
@@ -70,7 +54,7 @@ def  get_workouts_for_routine(routine_id):
 
     return jsonify({'workouts': workout_data})
 
-@routine_views.route('/routine/<int:routine_id>/add_workouts/<category>', methods = ['GET', 'POST'])
+@routine_views.route('/add_workout_to_routine/<int:routine_id>', methods = ['POST'])
 @jwt_required()
 def add_workouts_routine(routine_id, category='all'):
     data = None
@@ -87,7 +71,7 @@ def add_workouts_routine(routine_id, category='all'):
         return redirect(url_for('routines_views.routine_workouts', id = routine_id, routine_workout_id = None))
     return render_template('routine_adder.html', routine = selected_routine, workouts = workouts, exercises = exercises)
 
-@routine_views.route('/rename_routine/<int:routine_id', methods=['POST'])
+@routine_views.route('/rename_routine/<int:routine_id>', methods=['POST'])
 @jwt_required()
 def rename_routine_action(routine_id):
     data = request.form
@@ -116,4 +100,3 @@ def create_routine_action(category = 'all'):
 
         return redirect(url_for('routine_views.view_routine_action'))
     return render_template('createroutine.html', workouts=workouts)
-'''

@@ -12,10 +12,6 @@ body {
     margin: 0; 
 }
 
-.web-body {
-    text-align: center;
-}
-
 .header {
     position: relative;
     height: 70px;
@@ -47,48 +43,4 @@ body {
 .navbar a:hover {
     border-radius: 10px;
     background-color: #83C9BC;
-}
-
-.card-container {
-    position: relative;
-    left: 25%;
-    right: inherit;
-    justify-content: center;
-    text-align: center;
-}
-
-.card-container span{
-    text-align: center;
-}
-
-.center {
-    position: relative;
-    left: 38%;
-    right: inherit;
-}
-
-
-.left {
-    display: flex;
-    list-style: none;
-}
-
-.left img {
-    width: 70px;
-    height: auto;
-    border-radius: 10px;
-}
-
-.left li{
-    margin-right: auto;
-}
-
-.right {
-    position: fixed;
-    right: 50px;
-    display: flex;
-}
-
-.right li{
-   margin-top: auto;
 }
